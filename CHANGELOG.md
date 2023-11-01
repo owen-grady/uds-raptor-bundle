@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.0.0] - YYYY-MM-DD
+## [0.0.1] - 2023-11-01
 PRE RELEASE
 
 ### Added
@@ -11,5 +11,5 @@ PRE RELEASE
 - CONTRIBUTING.md
 - DEVELOPMENT_MAINTENANCE.md
 - LICENSE
-- READEME.md
-- zarf.yaml
+- README.md
+- uds-bundle.yaml

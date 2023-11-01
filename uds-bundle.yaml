@@ -2,8 +2,8 @@
 
 kind: UDSBundle
 metadata:
-  name: example
-  description: "Example description"
+  name: uds-raptor-bundle
+  description: "Raptor is a UDS Bundle for secure runtime on-prem."
   # x-release-please-start-version
   version: "0.0.1"
   # x-release-please-end
@@ -12,6 +12,6 @@ zarf-packages:
   # Zarf init package
   - name: init
     repository: ghcr.io/defenseunicorns/packages/init
-    ref: v0.30.1
+    ref: v0.31.0
     optional-components:
       - git-server

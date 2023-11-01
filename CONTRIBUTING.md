@@ -6,12 +6,14 @@ This document describes the process and requirements for contributing to this UD
 
 ## Table of Contents
 
-1. [Developer Experience](#developer-experience)
-2. [Definition of Done](#definition-of-done)
-3. [Getting Started](#getting-started)
-4. [Submitting a Pull Request](#submitting-a-pull-request)
-5. [PR Requirements](#pr-requirements)
-6. [Contact](#contact)
+- [Welcome to the \[NAME\] UDS Bundle](#welcome-to-the-name-uds-bundle)
+  - [Table of Contents](#table-of-contents)
+  - [Developer Experience](#developer-experience)
+  - [Definition of Done](#definition-of-done)
+  - [Getting Started](#getting-started)
+  - [Submitting a Pull Request](#submitting-a-pull-request)
+    - [PR Requirements](#pr-requirements)
+  - [Contact](#contact)
 
 ## Developer Experience
 
@@ -37,7 +39,10 @@ We apply these general principles to all User Stories and activities contributin
 
 ## Getting Started
 
-TBD
+1. View Issues
+2. View Pipeline's
+3. Suggest/Discuss Changes/Improvements
+4. Clone the project
 
 ## Submitting a Pull Request
 
@@ -46,6 +51,7 @@ TBD
 3. **Run Tests**: Ensure that your changes pass all tests.
 4. **Push Your Branch**: Push your branch to your fork on GitHub.
 5. **Create a Pull Request**: Open a pull request against the `main` branch of the Bundle repository. Please make sure that your PR passes all CI checks.
+6. **Note**: PRs will be 'squash and merged' to the `main` branch and commit message will follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) format.
 
 ### PR Requirements
 
