@@ -8,12 +8,20 @@ metadata:
   architecture: amd64
 
 zarf-packages:
-   - name: init
-     repository: ghcr.io/defenseunicorns/packages/init
-     ref: v0.31.3
-     optional-components:
-       - git-server
-   
-   - name: dubbd-aws
-     repository: ghcr.io/defenseunicorns/packages/dubbd-aws
-     ref: 0.14.0
+  # optional init (rook-ceph breaks out init stuff from zarf)
+  - name: init
+    repository: ghcr.io/defenseunicorns/packages/init
+    ref: v0.31.3
+    optional-components:
+      - git-server
+  - name: rook-ceph 
+    repository: ghcr.io/defenseunicorns/packages/rook-ceph
+    ref: 0.0.7  
+
+  - name: dubbd-aws
+    repository: ghcr.io/defenseunicorns/packages/dubbd-aws
+    ref: 0.14.0
+  
+  - name: metallb
+    repository: ghcr.io/defenseunicorns/packages/metallb
+    ref: 0.0.5

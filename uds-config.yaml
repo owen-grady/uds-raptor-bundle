@@ -4,3 +4,7 @@ bundle:
       init:
         set:
           GIT_SERVER_REPLICA_COUNT: 1
+      
+      dubbd-aws:
+        set:
+          approved_registries: ""
