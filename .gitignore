@@ -6,3 +6,4 @@ build/
 zarf-sbom
 tmp/
 
+go-containerregistry.tar.gz
