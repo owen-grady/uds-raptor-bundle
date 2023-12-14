@@ -13,8 +13,8 @@ zarf-packages:
     repository: ghcr.io/defenseunicorns/uds-capability/rook-ceph/init
     ref: v0.31.3
     overrides:
-      uds-rook-ceph-config:
-        uds-rook-ceph-config:
+      rook-ceph-cluster:
+        rook-ceph-cluster:
           variables:
             - name: configOverride
               description: "Set config Overrides"
@@ -23,14 +23,9 @@ zarf-packages:
             - name: cephClusterSpec
               description: "Ceph Cluster Spec"
               path: cephClusterSpec
+              
     optional-components:
       - git-server
-
-  # - name: init
-  #   repository: ghcr.io/defenseunicorns/packages/init
-  #   ref: v0.31.3
-  #   optional-components:
-  #     - git-server
 
   - name: dubbd-rke2
     repository: ghcr.io/defenseunicorns/packages/dubbd-rke2
