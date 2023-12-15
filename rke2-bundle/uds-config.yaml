@@ -16,3 +16,30 @@ bundle:
             mgr:
               count: 1
               allowMultiplePerNode: true
+            resources:
+              mgr:
+                limits: null
+                requests: null 
+              mon:
+                limits: null
+                requests: null
+              osd:
+                limits: null
+                requests: null
+              prepareosd:
+                requests: null
+              mgr-sidecar:
+                limits: null
+                requests: null
+              crashcollector:
+                limits: null
+                requests: null
+              logcollector:
+                limits: null
+                requests: null
+              cleanup:
+                limits: null
+                requests: null
+              exporter:
+                limits: null
+                requests: null
