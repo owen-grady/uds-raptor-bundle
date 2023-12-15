@@ -1,7 +1,7 @@
 bundle:
   deploy:
     zarf-packages:
-      init:
+      rook-ceph-init:
         set:
           configOverride: |
             [global]
@@ -9,7 +9,7 @@ bundle:
             osd_pool_default_min_size = 1
             mon_warn_on_pool_no_redundancy = false
             bluefs_buffered_io = false
-          cephClusterSpec: | 
+          cephClusterSpec:
             mon:
               count: 1
               allowMultiplePerNode: true

@@ -9,15 +9,18 @@ metadata:
 
 zarf-packages:
   # optional init (rook-ceph breaks out init stuff from zarf)
-  - name: Custom rook-ceph init package
+  - name: rook-ceph-init
     repository: ghcr.io/defenseunicorns/uds-capability/rook-ceph/init
-    ref: v0.31.3
+    ref: v0.31.4-0.1.2
     overrides:
+      # the component 
       rook-ceph-cluster:
+        # the chart 
         rook-ceph-cluster:
           variables:
             - name: configOverride
               description: "Set config Overrides"
+              # actual helm chart value 
               path: configOverride
 
             - name: cephClusterSpec
@@ -27,8 +30,8 @@ zarf-packages:
     optional-components:
       - git-server
 
-  - name: dubbd-rke2
-    repository: ghcr.io/defenseunicorns/packages/dubbd-rke2
+  - name: dubbd-k3d
+    repository: ghcr.io/defenseunicorns/packages/dubbd-k3d
     ref: 0.15.0
     overrides:
       istio-admin-gateway:
