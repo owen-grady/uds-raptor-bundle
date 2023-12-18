@@ -20,8 +20,8 @@ download-rke2-tarballs:
 	curl -o $(CURDIR)/rke2-ansible/tarball_install/sha256sum-amd64.txt -Ls https://github.com/rancher/rke2/releases/download/$(RKE2_VERSION)/sha256sum-amd64.txt
 
 rke2-install: git-sub-module download-rke2-tarballs ## Install RKE2 into the EDN environment
-	@(export ANSIBLE_CONFIG=$(CURDIR)/ansible/ansible.cfg; \
-	export ANSIBLE_INVENTORY=$(CURDIR)/ansible/$(CLUSTER_ENV)-inventory.yaml; \
+	@(export ANSIBLE_CONFIG=$(CURDIR)/infra/ansible/ansible.cfg; \
+	export ANSIBLE_INVENTORY=$(CURDIR)/infra/ansible/inventory-$(CLUSTER_ENV)/host.ini; \
 	ansible-playbook -b -k -K -i "$$ANSIBLE_INVENTORY" $(CURDIR)/rke2-ansible/site.yml)
 
 rook-ceph-cleanup:

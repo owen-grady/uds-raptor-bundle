@@ -3,39 +3,38 @@
 
 # RKE2 Installation
 
-The Raptor team heavily leverages Ansible of part of their infrastructure.  Rancher maintains an [Ansible playbook to install RKE2](https://github.com/rancherfederal/rke2-ansible) that we will use in both the EDN and Raptor environments.
+The Raptor team heavily leverages Ansible of part of their infrastructure.  Rancher maintains an [Ansible playbook to install RKE2](https://github.com/rancherfederal/rke2-ansible) that we will use in both the EDN and Raptor environments.  This playbook exists as a git submodule in the top level `rke2-ansible` folder.
 
-To use this playbook, do the following:
-
-Clone it:
+If needed, create an inventory file for the environment that you are working in:
 
 ```bash
-git clone https://github.com/rancherfederal/rke2-ansible.git
-```
-
-Create an inventory file for the environment that you are working in:
-
-```bash
-cp -R inventory/sample inventory/<<EDN|raptor>>
+cp -R rke2-ansible/inventory/sample infra/ansible/inventory/<<EDN|raptor>>
 ```
 
 Update the inventory file with IP addresses/hostnames as per the environment.
 
 In the EDN and Raptor environments, a custom `ansible.cfg` file is needed in order for the playbook to be able to run:
 
-```
+```cfg
+[defaults]
+home=/tmp/${USER}/.ansible
+remote_tmp=/tmp/${USER}/ansible
 
 ```
 
-Put this file alongside the `site.yml` playbook that will be called in the following step.
-
-Then actually call the playbook:
+When calling a playbook manually, the `ansible.cfg` file in the `infra/ansible` needs to be referenced in some way.  The easiest way is to export it as an environmental variable.  From the root of the repo, run:
 
 ```bash
-ansible-playbook -b -k -K -i inventory/<<EDN|raptor>>.yaml site.yaml
+export ANSIBLE_CONFIG=$(pwd)/infra/ansible/ansible.cfg
 ```
 
+Alternatively, a `make` target exits to deploy RKE2 to the EDN:
 
+```bash
+make rke2-install
+```
+
+The `rke2-install` make target will update the `rke2-ansible` git submodule imported into this repo and download the latest RKE2 tarballs and place them in `<<repo-root>>/rke2-ansible/tarball_install`.  This location is where the Ansible playbook will look for the install media in order to perform an air gap install.
 
 # UDS Bundle Raptor
 
