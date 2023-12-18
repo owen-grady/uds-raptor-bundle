@@ -1,3 +1,4 @@
+CLUSTER_ENV ?= edn
 RKE2_VERSION = v1.28.4+rke2r1
 
 .PHONY: help h
@@ -14,16 +15,17 @@ git-sub-module: ## Update git submodules
 	git submodule foreach git pull origin main
 
 download-rke2-tarballs:
-	curl -o $(CURDIR)/rke2-ansible/tarball_install/rke2-images.linux-amd64.tar.zst -Ls https://github.com/rancher/rke2/releases/download/$$RKE2_VERSION/rke2-images.linux-amd64.tar.zst
-	curl -o $(CURDIR)/rke2-ansible/tarball_install/rke2.linux-amd64.tar.gz -Ls https://github.com/rancher/rke2/releases/download/$$RKE2_VERSION/rke2.linux-amd64.tar.gz
-	curl -o $(CURDIR)/rke2-ansible/tarball_install/sha256sum-amd64.txt -Ls https://github.com/rancher/rke2/releases/download/$$RKE2_VERSION/sha256sum-amd64.txt
+	curl -o $(CURDIR)/rke2-ansible/tarball_install/rke2-images.linux-amd64.tar.zst -Ls https://github.com/rancher/rke2/releases/download/$(RKE2_VERSION)/rke2-images.linux-amd64.tar.zst
+	curl -o $(CURDIR)/rke2-ansible/tarball_install/rke2.linux-amd64.tar.gz -Ls https://github.com/rancher/rke2/releases/download/$(RKE2_VERSION)/rke2.linux-amd64.tar.gz
+	curl -o $(CURDIR)/rke2-ansible/tarball_install/sha256sum-amd64.txt -Ls https://github.com/rancher/rke2/releases/download/$(RKE2_VERSION)/sha256sum-amd64.txt
 
-rke2-edn-install: git-sub-module download-rke2-tarballs ## Install RKE2 into the EDN environment
+rke2-install: git-sub-module download-rke2-tarballs ## Install RKE2 into the EDN environment
 	@(export ANSIBLE_CONFIG=$(CURDIR)/ansible/ansible.cfg; \
-	export ANSIBLE_INVENTORY=$(CURDIR)/ansible/edn-inventory.yaml; \
+	export ANSIBLE_INVENTORY=$(CURDIR)/ansible/$(CLUSTER_ENV)-inventory.yaml; \
 	ansible-playbook -b -k -K -i "$$ANSIBLE_INVENTORY" $(CURDIR)/rke2-ansible/site.yml)
 
 rook-ceph-cleanup:
+	# https://rook.io/docs/rook/latest-release/Getting-Started/ceph-teardown/
 
 rke2-edn-uninstall: rook-ceph-cleanup
 	@(export ANSIBLE_INVENTORY=$(CURDIR)/ansible/edn-inventory.yaml; \
