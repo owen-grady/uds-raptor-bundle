@@ -55,7 +55,7 @@ cd rke2-bundle
 Then create the bundle:
 
 ```bash
-uds bundle create
+uds create .
 ```
 
 ## Deploy
@@ -63,11 +63,11 @@ uds bundle create
 The `create` step writes a UDS bundle to disk that needs to be referenced in the `deploy` step:
 
 ```bash
-uds deploy uds-bundle-raptor-uds-amd64-0.0.1.tar.zst
+uds deploy uds-bundle-raptor-uds-amd64-x.y.z.tar.zst
 ```
 
 ## Remove
 
 ```bash
-uds remove uds-bundle-raptor-uds-amd64-0.0.1.tar.zst
+uds remove uds-bundle-raptor-uds-amd64-x.y.z.tar.zst
 ```
