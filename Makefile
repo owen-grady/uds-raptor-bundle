@@ -29,7 +29,7 @@ rook-ceph-cleanup:
 
 rke2-edn-uninstall: rook-ceph-cleanup
 	@(export ANSIBLE_CONFIG=$(CURDIR)/infra/ansible/ansible.cfg; \
-	export ANSIBLE_INVENTORY=$(CURDIR)/ansible/edn-inventory.yaml; \
+	export ANSIBLE_INVENTORY=$(CURDIR)/infra/ansible/inventory-$(CLUSTER_ENV)/hosts.ini; \
 	ansible-playbook -b -k -K -i "$$ANSIBLE_INVENTORY" $(CURDIR)/infra/ansible/playbooks/uninstall.yml )
 
 download-uds-cli: ## Download UDS CLI 
