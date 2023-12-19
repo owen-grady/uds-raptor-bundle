@@ -1,0 +1,43 @@
+bundle:
+  deploy:
+    zarf-packages:
+      rook-ceph-init:
+        set:
+          configOverride: |
+            [global]
+            osd_pool_default_size = 1
+            osd_pool_default_min_size = 1
+            mon_warn_on_pool_no_redundancy = false
+            bluefs_buffered_io = false
+          cephClusterSpec:
+            mon:
+              count: 3
+            mgr:
+              count: 3
+            resources:
+              mgr:
+                limits: null
+                requests: null 
+              mon:
+                limits: null
+                requests: null
+              osd:
+                limits: null
+                requests: null
+              prepareosd:
+                requests: null
+              mgr-sidecar:
+                limits: null
+                requests: null
+              crashcollector:
+                limits: null
+                requests: null
+              logcollector:
+                limits: null
+                requests: null
+              cleanup:
+                limits: null
+                requests: null
+              exporter:
+                limits: null
+                requests: null

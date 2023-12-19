@@ -1,0 +1,58 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/uds-cli/main/uds.schema.json
+
+kind: UDSBundle
+metadata:
+  name: raptor-uds
+  description: UDS Bundle for Raptor
+  version: 0.0.1
+  architecture: amd64
+
+packages:
+  # optional init (rook-ceph breaks out init stuff from zarf)
+  - name: rook-ceph-init
+    repository: ghcr.io/defenseunicorns/uds-capability/rook-ceph/init
+    ref: v0.31.4-0.1.2
+    overrides:
+      # the component 
+      rook-ceph-cluster:
+        # the chart 
+        rook-ceph-cluster:
+          variables:
+            - name: configOverride
+              description: "Set config Overrides"
+              # actual helm chart value 
+              path: configOverride
+
+            - name: cephClusterSpec
+              description: "Ceph Cluster Spec"
+              path: cephClusterSpec
+              
+    optional-components:
+      - git-server
+
+  - name: dubbd-k3d
+    repository: ghcr.io/defenseunicorns/packages/dubbd-k3d
+    ref: 0.15.0
+    overrides:
+      istio-admin-gateway:
+        uds-istio-config:
+          variables:
+            - name: ADMIN_TLS_CERT
+              description: "The TLS cert for the admin gateway (must be base64 encoded)"
+              path: tls.cert
+            - name: ADMIN_TLS_KEY
+              description: "The TLS key for the admin gateway (must be base64 encoded)"
+              path: tls.key
+      istio-tenant-gateway:
+        uds-istio-config:
+          variables:
+            - name: TENANT_TLS_CERT
+              description: "The TLS cert for the tenant gateway (must be base64 encoded)"
+              path: tls.cert
+            - name: TENANT_TLS_KEY
+              description: "The TLS key for the tenant gateway (must be base64 encoded)"
+              path: tls.key
+
+  - name: metallb
+    repository: ghcr.io/defenseunicorns/packages/metallb
+    ref: 0.0.5
