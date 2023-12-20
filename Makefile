@@ -21,7 +21,7 @@ download-rke2-tarballs:
 
 rke2-install: git-sub-module download-rke2-tarballs ## Install RKE2 into the EDN environment
 	@(export ANSIBLE_CONFIG=$(CURDIR)/infra/ansible/ansible.cfg; \
-	export ANSIBLE_INVENTORY=$(CURDIR)/infra/ansible/inventory-$(CLUSTER_ENV)/host.ini; \
+	export ANSIBLE_INVENTORY=$(CURDIR)/infra/ansible/inventory-$(CLUSTER_ENV)/hosts.ini; \
 	ansible-playbook -b -k -K -i "$$ANSIBLE_INVENTORY" $(CURDIR)/rke2-ansible/site.yml)
 
 rook-ceph-cleanup:
