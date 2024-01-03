@@ -41,4 +41,3 @@ download-uds-cli: ## Download UDS CLI
 	curl -o $(CURDIR)/uds -Ls https://github.com/defenseunicorns/uds-cli/releases/download/$(UDS_CLI_VERSION)/uds-cli_$(UDS_CLI_VERSION)_Linux_amd64
 	chmod +x $(CURDIR)/uds
 	sudo mv $(CURDIR)/uds /usr/local/bin/
-
