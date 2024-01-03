@@ -1,0 +1,20 @@
+---
+- name: Prep node for RKE2
+  hosts: rke2_servers:rke2_agents
+  any_errors_fatal: true
+  become: true
+  tasks:
+    - name: Create /etc/profile.d/http_proxy.sh
+      file:
+        path: /etc/profile.d/http_proxy.sh
+        state: touch
+        owner: root
+        group: root
+        mode: '0644'
+      
+    - name: Populate /etc/profile.d/http_proxy.sh if needed
+      lineinfile:
+        path: /etc/profile.d/http_proxy.sh
+        line: 'no_proxy=$no_proxy,10.163.0.0/16'
+        create: yes
+        state: present
