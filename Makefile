@@ -21,10 +21,10 @@ edn-node-prep: ## Prep EDN nodes to run RKE2
 	ansible-playbook -b -k -K -i "$$ANSIBLE_INVENTORY" $(CURDIR)/infra/ansible/playbooks/node-setup.yml)
 
 download-rke2-tarballs: ## Download RKE2 Installation Tarballs
-	curl -# -o $(CURDIR)/rke2-ansible/tarball_install/rke2-images.linux-amd64.tar.zst -L https://github.com/rancher/rke2/releases/download/$(RKE2_VERSION)/rke2-images.linux-amd64.tar.zst
+	curl -# -o $(CURDIR)/rke2-ansible/tarball_install/rke2-images.linux-amd64.tar.zst -L https://github.com/rancher/rke2/releases/download/$(RKE2_VERSION)/rke2-images.linux-amd64.tar.gz
 	curl -# -o $(CURDIR)/rke2-ansible/tarball_install/rke2.linux-amd64.tar.gz -L https://github.com/rancher/rke2/releases/download/$(RKE2_VERSION)/rke2.linux-amd64.tar.gz
 	curl -# -o $(CURDIR)/rke2-ansible/tarball_install/sha256sum-amd64.txt -L https://github.com/rancher/rke2/releases/download/$(RKE2_VERSION)/sha256sum-amd64.txt
-	curl -# -o $(CURDIR)/rke2-ansible/tarball_install/ -L https://github.com/rancher/rke2/releases/download/$(RKE2_VERSION)/rke2-images-calico.linux-amd64.tar.zst
+	curl -# -o $(CURDIR)/rke2-ansible/tarball_install/rke2-images-calico.linux-amd64.tar.zst  -L https://github.com/rancher/rke2/releases/download/$(RKE2_VERSION)/rke2-images-calico.linux-amd64.tar.gz
 
 rke2-install: git-sub-module  download-rke2-tarballs ## Install RKE2 into the EDN environment
 	@(export ANSIBLE_CONFIG=$(CURDIR)/infra/ansible/ansible.cfg; \
