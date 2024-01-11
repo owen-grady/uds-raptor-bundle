@@ -2,7 +2,8 @@
 
 # Primary RKE2 agent configuration parameters. Remove the curly braces ( {} ) and add your configuration.
 # See https://docs.rke2.io/install/install_options/linux_agent_config/ for all configuration options.
-rke2_config: {}
+rke2_config: 
+  cni: calico
   # debug: false
 
 # See https://docs.rke2.io/install/containerd_registry_configuration/
