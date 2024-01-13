@@ -1,0 +1,5 @@
+rke2_config:
+  cni:
+    - calico
+  disable:
+    - rke2-canal

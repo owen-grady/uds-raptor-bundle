@@ -4,17 +4,37 @@
   any_errors_fatal: true
   become: true
   tasks:
-    - name: Create /etc/profile.d/http_proxy.sh
-      file:
-        path: /etc/profile.d/http_proxy.sh
-        state: touch
-        owner: root
-        group: root
-        mode: '0644'
+    # - name: Create /etc/profile.d/http_proxy.sh
+    #   file:
+    #     path: /etc/profile.d/http_proxy.sh
+    #     state: absent
+    #     owner: root
+    #     group: root
+    #     mode: '0644'
       
-    - name: Populate /etc/profile.d/http_proxy.sh if needed
-      lineinfile:
-        path: /etc/profile.d/http_proxy.sh
-        line: 'no_proxy=$no_proxy,10.163.0.0/16'
-        create: yes
-        state: present
+    # - name: Populate /etc/profile.d/http_proxy.sh if needed
+    #   lineinfile:
+    #     path: /etc/profile.d/http_proxy.sh
+    #     line: 'no_proxy=$no_proxy,10.163.0.0/16'
+    #     create: yes
+    #     state: present
+
+    - name: "Check for Calico image tarball in tarball_install"
+      ansible.builtin.stat:
+        path: "{{ playbook_dir }}/tarball_install/rke2-images-calico.linux-amd64.tar.gz"
+      register: rke2_binary_tarball_check
+      delegate_to: 127.0.0.1
+      become: false
+
+    - name: TARBALL | Make temp dir
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: rke2-install.XXXXXXXXXX
+        path: "{{ tarball_tmp_dir | default(omit) }}"
+      register: temp_dir
+
+    - name: Transfer Calico to node
+      copy:
+        src: "{{ playbook_dir }}/tarball_install/rke2-images-calico.linux-amd64.tar.gz"
+        dest: "{{ temp_dir.path }}/rke2.linux-amd64.tar.gz"
+        mode: '0644'
