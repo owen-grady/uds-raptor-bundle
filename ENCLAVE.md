@@ -19,9 +19,13 @@ The playbook is located in `/data01/unicorn/uds-raptor-bundle/` you can run the 
 To deploy the cluster you can run `ansible-playbook -i infra/ansible/inventory-working/hosts rke2-ansible/site.yml`
 
 ### UDS bundle / rook-ceph-init 
-The UDS bundle is located in `/data01/raptor-bundle` and has already been created, this however may need to be updated (which means we need to create a bundle within the EDN and then transfer the files over from the correct (This is mounted already within 10.163.30.91 EDN)/cifs_new/RaptorDrop/ directory, you can also create a directory and transfer the file in there and have Justin from NGC transfer it over to the enclave.
+The UDS bundle is located in `/data01/raptor-bundle` and has already been created, this however may need to be updated (which means we need to create a bundle within the EDN and then transfer the files over.
+You can run `uds deploy uds-raptor-bundle-...` to begin the deployment process but currently it is failing somewhere.
 
-You can run `uds deploy uds-raptor-bundle-...` to begin the deployment process but currently it is failing somewhere. 
+### EDN 
+This is mounted already within 10.163.30.91 EDN ::: `/mnt/cifs_new/RaptorDrop_new/`
+
+You can create the UDS bundle within the EDN, and then copy the file over to `/mnt/cifs_new/RaptorDrop_new/`
 
 Changes needed: the current nodes may need a kernel build to enable a module named "RDB" for rook-ceph to function properly. 
 
