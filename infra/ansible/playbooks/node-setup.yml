@@ -4,6 +4,21 @@
   any_errors_fatal: true
   become: true
   tasks:
+    - name: Allow UDP traffic from 10.163.30.0/24
+      iptables:
+        chain: INPUT
+        protocol: udp
+        source: 10.163.30.0/24
+        jump: ACCEPT
+
+    - name: Allow UDP traffic to 10.163.30.0/24
+      iptables:
+        chain: OUTPUT
+        protocol: udp
+        source: 10.163.30.0/24
+        jump: ACCEPT
+
+
     # - name: Create /etc/profile.d/http_proxy.sh
     #   file:
     #     path: /etc/profile.d/http_proxy.sh
@@ -19,22 +34,23 @@
     #     create: yes
     #     state: present
 
-    - name: "Check for Calico image tarball in tarball_install"
-      ansible.builtin.stat:
-        path: "{{ playbook_dir }}/tarball_install/rke2-images-calico.linux-amd64.tar.gz"
-      register: rke2_binary_tarball_check
-      delegate_to: 127.0.0.1
-      become: false
+    # - name: "Check for Calico image tarball in tarball_install"
+    #   ansible.builtin.stat:
+    #     path: "{{ playbook_dir }}/tarball_install/rke2-images-calico.linux-amd64.tar.gz"
+    #   register: rke2_binary_tarball_check
+    #   delegate_to: 127.0.0.1
+    #   become: false
 
-    - name: TARBALL | Make temp dir
-      ansible.builtin.tempfile:
-        state: directory
-        suffix: rke2-install.XXXXXXXXXX
-        path: "{{ tarball_tmp_dir | default(omit) }}"
-      register: temp_dir
+    # - name: TARBALL | Make temp dir
+    #   ansible.builtin.tempfile:
+    #     state: directory
+    #     suffix: rke2-install.XXXXXXXXXX
+    #     path: "{{ tarball_tmp_dir | default(omit) }}"
+    #   register: temp_dir
 
-    - name: Transfer Calico to node
-      copy:
-        src: "{{ playbook_dir }}/tarball_install/rke2-images-calico.linux-amd64.tar.gz"
-        dest: "{{ temp_dir.path }}/rke2.linux-amd64.tar.gz"
-        mode: '0644'
+    # - name: Transfer Calico to node
+    #   copy:
+    #     src: "{{ playbook_dir }}/tarball_install/rke2-images-calico.linux-amd64.tar.gz"
+    #     dest: "{{ temp_dir.path }}/rke2.linux-amd64.tar.gz"
+    #     mode: '0644'
+

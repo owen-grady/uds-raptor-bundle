@@ -2,6 +2,11 @@
 # Primary RKE2 server configuration parameters. Remove the curly braces ( {} ) and add your configuration.
 # See https://docs.rke2.io/install/install_options/server_config/ for all configuration options.
 rke2_config: {}
+  # cni:
+  #   - calico
+  # disable:
+  #   - rke2-canal
+  #   - rke2-kube-proxy
 
 # Example of possible rke2_config.
 #rke2_config:
